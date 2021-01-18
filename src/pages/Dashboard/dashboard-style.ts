@@ -1,5 +1,38 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { shade } from 'polished';
+
+interface FormProps {
+  hasError: boolean;
+}
+
+const shake = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(24px);
+  }
+
+  50% {
+    transform: translateX(0px);
+  }
+
+  75% {
+    transform: translateX(24px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+`;
+
+export const Error = styled.span`
+  display: block;
+  color: #c53030;
+  margin: 8px 0 0 16px;
+  animation: 0.3s ${shake} ease-out;
+`;
 
 export const Title = styled.h1`
   font-size: 48px;
@@ -9,7 +42,7 @@ export const Title = styled.h1`
   max-width: 450px;
 `;
 
-export const Form = styled.form`
+export const Form = styled.form<FormProps>`
   margin-top: 40px;
   max-width: 700px;
   display: flex;
@@ -20,10 +53,18 @@ export const Form = styled.form`
     border: 0;
     padding: 0 24px;
     border-radius: 5px 0 0 5px;
+    border: 2px solid #fff;
+    border-right: 0;
 
     &::placeholder {
       color: #a8a8b3;
     }
+
+    ${(props) =>
+      props.hasError &&
+      css`
+        border-color: #c53030;
+      `}
   }
 
   button {
@@ -72,7 +113,8 @@ export const Repositories = styled.div`
     }
 
     div {
-      margin-left: 16px;
+      margin: 0 16px;
+      flex: 1;
 
       strong {
         font-size: 20px;
