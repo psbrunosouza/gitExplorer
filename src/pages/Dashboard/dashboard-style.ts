@@ -134,3 +134,9 @@ export const Repositories = styled.div`
     }
   }
 `;
+
+export const Description = styled.p`
+  margin-top: 8px;
+  font-size: 18px;
+  color: #95959e;
+`;

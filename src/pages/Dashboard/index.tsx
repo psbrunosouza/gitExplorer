@@ -3,7 +3,13 @@ import React, { useState, FormEvent, useEffect } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
-import { Title, Form, Repositories, Error } from './dashboard-style';
+import {
+  Title,
+  Form,
+  Repositories,
+  Error,
+  Description,
+} from './dashboard-style';
 import logoImg from '../../assets/logo.svg';
 
 interface Repository {
@@ -61,6 +67,9 @@ const Dashboard: React.FC = () => {
     <>
       <img src={logoImg} alt="git-explorer" />
       <Title>Explore repositórios no Github</Title>
+      <Description>
+        Para realizar uma busca digite autor/repositorio exemplo: facebook/react
+      </Description>
 
       <Form hasError={!!inputError} onSubmit={handleAddRepository}>
         <input
