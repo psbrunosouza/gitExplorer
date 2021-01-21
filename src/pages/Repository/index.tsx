@@ -129,8 +129,8 @@ const Repository: React.FC = () => {
       )}
 
       <Pagination
-        totalIssues={issues.length}
-        issuesPerPage={issuesPerPage}
+        totalItems={issues.length}
+        itemsPerPage={issuesPerPage}
         paginate={paginate}
         currentPage={currentPage}
       />

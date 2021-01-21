@@ -11,6 +11,7 @@ import {
   Description,
 } from './dashboard-style';
 import logoImg from '../../assets/logo.svg';
+import Pagination from '../../components/Pagination';
 
 interface Repository {
   full_name: string;
@@ -34,6 +35,20 @@ const Dashboard: React.FC = () => {
     }
     return [];
   });
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [repositoriesPerPage] = useState<number>(5);
+
+  const indexOfLastRepository = currentPage * repositoriesPerPage;
+  const indexOfFirstRepository = indexOfLastRepository - repositoriesPerPage;
+  const currentRepositories = repositories.slice(
+    indexOfFirstRepository,
+    indexOfLastRepository,
+  );
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     localStorage.setItem(
@@ -84,7 +99,7 @@ const Dashboard: React.FC = () => {
       {inputError && <Error>{inputError}</Error>}
 
       <Repositories>
-        {repositories.map((repository) => (
+        {currentRepositories.map((repository) => (
           <Link
             key={repository.full_name}
             to={`/repository/${repository.full_name}`}
@@ -101,6 +116,13 @@ const Dashboard: React.FC = () => {
           </Link>
         ))}
       </Repositories>
+
+      <Pagination
+        totalItems={repositories.length}
+        itemsPerPage={repositoriesPerPage}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
     </>
   );
 };
